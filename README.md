@@ -1,10 +1,18 @@
 # iframeloader
-iframeloader is a small javascript library that can be used to load a URL in an iframe. 
+iframeloader is a small js library that can be used to load a URL in an iframe. It will generate and append an iframe and provides some communication between the hosted page and iframe.
 
+## Features
+- Multiple frames can be generated
+- Provides postMessages from hosted page to iframe and visa versa
+
+# Todo
+- handover other events (i.e. click), so that an event outside will notify the iframe. This will improve the experience.
+
+
+## Development environment
 The code is developed in typescript and compiled with webpack.
 The code does not have any dependencies as we want this code to be very clean so that it can run in a hosted page (i.e. a confluence page) without any conficts with existing JS.
 
-## Development environment
 Using yarn or npm to install and run.
 
 ```bash
