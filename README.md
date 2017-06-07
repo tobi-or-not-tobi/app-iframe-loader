@@ -1,5 +1,7 @@
 # iframeloader
-iframeloader is a small js library that can be used to load a URL in an iframe. It will generate and append an iframe and provides some communication between the hosted page and iframe.
+iframeloader is a small js library that can be used to load a URL in an iframe. The purpose is to generate the iframe on the fly and support any interaction and communciation between the hosted page and the iframe. 
+
+iframeloader is written in typescript and will be compiled in JS (es5)
 
 ## Features
 - Multiple frames can be generated
@@ -30,7 +32,7 @@ Webpack dev server is used to serve the files. The webserver is configured to wa
 
 The index.html page is used for testing, it is not part of the generated lib.
 
-A proxy can be used for any third party webservices that requies CORS configuration for the client.
+A proxy can be used for any third party APIs that require CORS configuration for the client.
 
 The dev server can be configured using the `webpack.config.js`.
 

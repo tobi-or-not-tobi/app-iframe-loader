@@ -1,11 +1,16 @@
+import { EventListener } from './event-listener';
 import { HttpEvents } from './http-events';
+import { LocalLink } from './local-link';
+import { ScrollEvents } from './scroll-events';
 
 export class EventManager {
-    httpEvents: HttpEvents;
-    frames: HTMLIFrameElement[] = [];
+    eventListeners: Array<EventListener> = [];
 
     constructor() {
-        this.httpEvents = new HttpEvents();
+        this.eventListeners.push(new HttpEvents());
+        this.eventListeners.push(new ScrollEvents());
+        this.eventListeners.push(new LocalLink());
+
         this.setupListener();
     }
 
@@ -16,25 +21,19 @@ export class EventManager {
      * @param  {HTMLIFrameElement} frame
      */
     registerFrame(frame: HTMLIFrameElement) {
-        this.frames.push(frame);
-    }
-
-    private setupListener() {
-        window.addEventListener('message', this.processMessageEvent.bind(this))
-    }
-
-    private processMessageEvent(event: MessageEvent) {
-        if (event.data && event.data.type === 'http') {
-            const frame = this.getFrame(event.origin);
-            this.httpEvents.load(event.data, frame);
+        for (const listener of this.eventListeners) {
+            listener.registerFrame(frame);
         }
     }
 
-    private getFrame(url: string): HTMLIFrameElement {
-        const frames = this.frames.filter(frame => {
-            return frame.src.indexOf(url) > -1;
-        });
-        return frames.length > 0 ? frames[0] : null;
+    private setupListener() {
+        window.addEventListener('message', this.processMessageEvent.bind(this));
+    }
+
+    private processMessageEvent(event: MessageEvent) {
+        for (const listener of this.eventListeners) {
+            listener.processMessage(event);
+        }
     }
 
 }
