@@ -1,30 +1,49 @@
 <html>
     <head>
-        <title>webpack 2 demo</title>
+        <title>iframeloader</title>
         <style>
-            .myFrame {
-                border:none;
-                width: 100%;
-                height: 500px;
+            .header {
+                height: 300px;
+                border: solid 1px green;
             }
-            #first, #sec {
+            #first {
+                width:40%;
+                height: 1000px;
+                float: left;
+                border: solid 1px red;
+            }
+            #sec {
                 width: 50%;
                 float: left;
+            }
+            .myFrame, .metadata {
+                border:none;
+                width: calc(50%);
+                left: 50%;
+                height: 100%;
+                position: absolute;
+                /*position: fixed;*/
             }
         </style>
     </head>
     <body>
-        <p>This page can be used to test the frameloader
+        <p class="header">This page can be used to test the frameloader</p>
         <div id="first"></div>
         <div id="sec"></div>
-        <script src="/assets/app.bundle.js"></script>
+        <script src="/assets/iframeloader.bundle.js"></script>
         <script>
             var options = {
-                targetElementId: 'first',
-                targetElementClass: 'myFrame'
+                targetElementId: 'sec',
+                targetElementClass: 'myFrame',
+                targetFrameClass: 'metadata',
+                bootstrap: {
+                    pageId: '326189946',
+                    host: 'https://wiki.hybris.com/display/~tobias.ouwejan@hybris.com/iframeloader'
+                    // location.href
+                }
             }
             iframeloader.launch('https://localhost:4200', options);
-            iframeloader.launch('https://localhost:5000', {targetElementId: 'sec', targetElementClass: 'myFrame'});
+            // iframeloader.launch('https://localhost:5000', {targetElementId: 'sec', targetElementClass: 'myFrame'});
         </script>
     </body>
 </html>
