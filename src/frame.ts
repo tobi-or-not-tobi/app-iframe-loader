@@ -2,55 +2,90 @@
 export class FrameWrapper {
     private url: string;
     private options: any;
+    private parentElement: HTMLElement;
     public iframe: HTMLIFrameElement ;
 
-    constructor(url: string, options: any) {
-        this.url = url;
+    constructor(options: any) {
         this.options = options;
-        this.create();
+        this.init();
     }
 
     launch() {
         this.append();
     }
 
-    private create() {
-        this.iframe = document.createElement('iframe');
-        this.iframe.src = this.url;
+    togglePanel(cls: string) {
+        console.log('toggle', cls);
+        this.parentElement.classList.toggle(cls);
+    }
 
-        if (this.options) {
-
-            // add css class to control the iframe layout
-            if (this.options.targetFrameClass) {
-                this.iframe.classList.add(this.options.targetFrameClass);
-            }
-
-            // pass optional parameters to bootstrap the app
-            if (this.options.bootstrap) {
-                this.iframe.onload = function() {
-                    this.iframe.contentWindow.postMessage({
-                        type: 'bootstrap',
-                        params: this.options.bootstrap
-                    }, '*');
-                }.bind(this);
+    private init() {
+        if (this.options.frameId) {
+            this.iframe = <HTMLIFrameElement>document.getElementById(this.options.frameId);
+        }
+        if (!this.iframe) {
+            this.iframe = document.createElement('iframe');
+            this.iframe.id = this.options.frameId;
+            this.iframe.src = this.options.url;
+        }
+        // add css class to control the iframe layout
+        if (this.options.targetFrameClass) {
+            for (const c of this.options.targetFrameClass.split(' ')) {
+                this.iframe.classList.add(c);
             }
         }
+
+        this.bootstrap();
+    }
+
+    /**
+     * Pass optional parameters to the app
+     * to bootstrap the app with data that comes from outside
+     * 
+     */
+    private bootstrap() {
+        if (!this.options.bootstrap) {
+            return;
+        }
+        
+        // if (this.iframe.contentWindow) {
+        //     this.iframe.contentWindow.postMessage({
+        //         type: 'bootstrap',
+        //         params: this.options.bootstrap
+        //     }, '*');
+        // }else {
+            this.iframe.onload = function() {
+                this.iframe.contentWindow.postMessage({
+                    type: 'bootstrap',
+                    params: this.options.bootstrap
+                }, '*');
+            }.bind(this);
+        // }
     }
 
     private append() {
-        let parentElement: HTMLElement;
+
         if (this.options && this.options.targetElementId && document.getElementById(this.options.targetElementId)) {
-            parentElement = document.getElementById(this.options.targetElementId);
+            this.parentElement = document.getElementById(this.options.targetElementId);
         }else {
-            parentElement = document.body;
+            this.parentElement = document.body;
         }
 
+        this.addTargetClass();
+
+        // add iframe if not yet being done elsewhere
+        if (!this.parentElement.querySelector('#' + this.iframe.id)) {
+            this.parentElement.appendChild(this.iframe);
+        }
+    }
+
+    private addTargetClass() {
         // add css class to control the iframe layout
         if (this.options && this.options.targetElementClass) {
-            parentElement.classList.add(this.options.targetElementClass);
+            for (const c of this.options.targetElementClass.split(' ')) {
+                this.parentElement.classList.add(c);
+            }
         }
-
-        parentElement.appendChild(this.iframe);
     }
 
 }

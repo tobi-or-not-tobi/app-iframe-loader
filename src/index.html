@@ -2,48 +2,181 @@
     <head>
         <title>iframeloader</title>
         <style>
-            .header {
-                height: 300px;
-                border: solid 1px green;
+            body {
+                padding: 0;
+                margin: 0;
             }
-            #first {
-                width:40%;
-                height: 1000px;
+            .page {
+                /* border: solid 1px blue; */
+            }
+            .item {
+                /* padding: 20px; */
+                top: 5px;
+                
+                position: -webkit-sticky;
+                position: -moz-sticky;
+                position: -ms-sticky;
+                position: -o-sticky; 
+                position: sticky; 
+            }
+            .wrapper {
+                /* border: solid 1px red; */
+                height: 50vh;
+                height: 2000px;
+                /* display: inline; */
+            }
+            .more {
+                height: 2000px;
+                background: green; 
+
+                background: linear-gradient(red, yellow); /* Standard syntax */
                 float: left;
-                border: solid 1px red;
+                width: 50vw;
             }
-            #sec {
-                width: 50%;
-                float: left;
+
+            .iFrameWrapper {
+                height: calc(100vh - 5px);
             }
-            .myFrame, .metadata {
-                border:none;
-                width: calc(50%);
-                left: 50%;
+            .iFrame {
+                border: none; 
+                display: block;
                 height: 100%;
-                position: absolute;
-                /*position: fixed;*/
+                width:400px;
+                transition: height 0.15s ease-out;
+            }
+            .iFrame_small {
+                height: 100px !important;
+                transition: height 0.25s ease-in;
+            }
+            .footer {
+                height: 200px;
+            }
+
+            .iFrameWrapperTest {
+                border: solid 1px blue;
+            }
+            .iFrameWrapperTest .iFrame {
+                width: 0 !important;                
             }
         </style>
     </head>
     <body>
-        <p class="header">This page can be used to test the frameloader</p>
-        <div id="first"></div>
-        <div id="sec"></div>
+        <h1 class="header">This could be your big fat header...</h1>
+        
+        <div class="page">
+            <div class="more">
+                more...
+                <a onclick="iframeloader.togglePanel('iFrameWrapperTest')">toggle</a>
+            </div>
+            <div class="wrapper">
+                Any content in our wrapper
+                <div class="item" id="wrapper">
+                    <!-- <a onclick="console.log('click')">toggle</a> -->
+                    <iframe src="https://localhost:4200" id="frameX"></iframe>  
+                </div>
+            </div>
+            <div class="footer">
+                FOOTER
+            </div>
+        </div>
+
         <script src="/assets/iframeloader.bundle.js"></script>
         <script>
-            var options = {
-                targetElementId: 'sec',
-                targetElementClass: 'myFrame',
-                targetFrameClass: 'metadata',
+            var alfUiOptions = {
+                url: 'https://localhost:4200',
+                frameId: 'frameX',
+                targetElementId: 'wrapper', // the wrapper that will hold the iframe
+                targetElementClass: 'iFrameWrapper', // an additional class for the wrapper that holds the iframe
+                // targetFrameClass: 'iFrame',
+                // bootstrap some apps might need bootstrapping
                 bootstrap: {
-                    pageId: '326189946',
-                    host: 'https://wiki.hybris.com/display/~tobias.ouwejan@hybris.com/iframeloader'
-                    // location.href
+                    pageId: '292372255',
+                    host: 'https://wiki.hybris.com/display/hybrisalf/'
                 }
             }
-            iframeloader.launch('https://localhost:4200', options);
-            // iframeloader.launch('https://localhost:5000', {targetElementId: 'sec', targetElementClass: 'myFrame'});
+            iframeloader.launch(alfUiOptions);
         </script>
+
+
+        <script>
+            // var metadataOptions = {
+            //     targetElementId: 'first',
+            //     targetFrameClass: 'editorframe',
+            //     bootstrap: {
+            //         metaModel: {
+            //             fields: [
+            //                 {
+            //                     id: "pageType",
+            //                     label: "Page Type",
+            //                     type: "Boolean"
+            //                 },
+            //                 {
+            //                     "id": "description",
+            //                     "label": "My Description",
+            //                     "type": "String"
+            //                 },
+            //                 {
+            //                     "id": "birthday",
+            //                     "label": "Birthday",
+            //                     "type": "Date"
+            //                 },
+            //                 {
+            //                     "id": "colors",
+            //                     "label": "Kleur",
+            //                     "type": "Select",
+            //                     values: [
+            //                         'red', 'blue', 'yellow', 'black', 'brown'
+            //                     ]
+            //                 },
+            //                 {
+            //                     "id": "colorsref",
+            //                     "label": "Kleur (ref)",
+            //                     "type": "Reference",
+            //                     values: [
+            //                         'red', 'blue'
+            //                     ]
+            //                 },
+            //                 {
+            //                     id: "items",
+            //                     label: "Items",
+            //                     type: "Reference",
+            //                     loader: {
+            //                         url: 'https://wiki.hybris.com/rest/api/content/318623324/property/alf',
+            //                         method: 'get'
+            //                     }
+            //                 }
+            //             ]
+            //         },
+            //         view: {
+            //             edit: {
+            //                 // fields: ['pageType', 'description', 'colors', 'colorsref', 'items', 'birthday']
+            //                 tabs: [
+            //                     {
+            //                         label: 'References',
+            //                         fields: ['items']
+            //                     },
+            //                     {
+            //                         label: 'Properties',
+            //                         fields: ['pageType']
+            //                     },
+            //                     {
+            //                         label: 'More',
+            //                         fields: [
+            //                             {model: 'description', hidePlaceholder: false}, 
+            //                             'colors'] 
+            //                     }
+            //                 ]
+            //             }
+            //         },
+            //         data: {
+            //             pageType: true,
+            //             description: 'hallo... this is content...',
+            //             birthday: '06-01-2010'
+            //         }
+            //     }
+            // }
+            // iframeloader.launch('https://localhost:4300', metadataOptions);
+        </script>
+
     </body>
 </html>

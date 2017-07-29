@@ -1,15 +1,15 @@
 import { EventListener } from './event-listener';
 import { HttpEvents } from './http-events';
 import { LocalLink } from './local-link';
-import { ScrollEvents } from './scroll-events';
+import { FrameEvents } from './frame-events';
 
 export class EventManager {
     eventListeners: Array<EventListener> = [];
 
     constructor() {
         this.eventListeners.push(new HttpEvents());
-        this.eventListeners.push(new ScrollEvents());
         this.eventListeners.push(new LocalLink());
+        this.eventListeners.push(new FrameEvents());
 
         this.setupListener();
     }
