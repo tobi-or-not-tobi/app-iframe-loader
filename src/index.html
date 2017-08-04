@@ -37,17 +37,32 @@
             .iFrameWrapper {
                 height: calc(100vh - 5px);
             }
-            .iFrame {
+
+            /* iframe */
+            iframe {
                 border: none; 
                 display: block;
-                height: 100%;
+            }
+            iframe.search {
                 width:400px;
+                position: absolute;
+                right: 10px;
                 transition: height 0.15s ease-out;
+                transition-delay: 0.15s; 
             }
-            .iFrame_small {
-                height: 100px !important;
-                transition: height 0.25s ease-in;
+            iframe.search.tiny {
+                height: 65px;
             }
+            iframe.search.max {
+                height: 100%;
+                /* background: #fff; */
+    margin:5px;
+    background-color: #fff;
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+
+            }
+            
+            
             .footer {
                 height: 200px;
             }
@@ -72,7 +87,17 @@
                 Any content in our wrapper
                 <div class="item" id="wrapper">
                     <!-- <a onclick="console.log('click')">toggle</a> -->
-                    <iframe src="https://localhost:4200" id="frameX"></iframe>  
+                    <iframe src="https://localhost:4200" id="frameX" class="search tiny"></iframe>  
+                    Other content, bla die bla. Other content, bla die bla.
+                    Other content, bla die bla. Other content, bla die bla. Other content, bla die bla. Other content, bla die bla. Other content, bla die bla. 
+                    Other content, bla die bla. Other content, bla die bla.
+                    Other content, bla die bla. Other content, bla die bla. Other content, bla die bla. Other content, bla die bla. Other content, bla die bla. 
+                    Other content, bla die bla. Other content, bla die bla.
+                    Other content, bla die bla. Other content, bla die bla. Other content, bla die bla. Other content, bla die bla. Other content, bla die bla. 
+                    Other content, bla die bla. Other content, bla die bla.
+                    Other content, bla die bla. Other content, bla die bla. Other content, bla die bla. Other content, bla die bla. Other content, bla die bla. 
+                    Other content, bla die bla. Other content, bla die bla.
+                    Other content, bla die bla. Other content, bla die bla. Other content, bla die bla. Other content, bla die bla. Other content, bla die bla. 
                 </div>
             </div>
             <div class="footer">
@@ -82,19 +107,22 @@
 
         <script src="/assets/iframeloader.bundle.js"></script>
         <script>
-            var alfUiOptions = {
-                url: 'https://localhost:4200',
-                frameId: 'frameX',
-                targetElementId: 'wrapper', // the wrapper that will hold the iframe
-                targetElementClass: 'iFrameWrapper', // an additional class for the wrapper that holds the iframe
-                // targetFrameClass: 'iFrame',
-                // bootstrap some apps might need bootstrapping
-                bootstrap: {
-                    pageId: '292372255',
-                    host: 'https://wiki.hybris.com/display/hybrisalf/'
-                }
-            }
-            iframeloader.launch(alfUiOptions);
+var alfUiOptions = {
+    url: 'https://localhost:4200',
+    frameId: 'frameX',
+    targetElementId: 'wrapper', // the wrapper that will hold the iframe
+    targetElementClass: 'iFrameWrapper', // an additional class for the wrapper that holds the iframe
+    // targetFrameClass: 'tiny', // tiny in case we're on a knowledge page
+    // targetFrameClass: 'max', // large in case we're on the landing page 
+    
+    // bootstrap some apps might need bootstrapping
+    bootstrap: {
+        pageId: '292372255',
+        host: 'https://wiki.hybris.com/display/hybrisalf/',
+        landingpage: false
+    }
+}
+iframeloader.launch(alfUiOptions);
         </script>
 
 

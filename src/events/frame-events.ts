@@ -18,13 +18,18 @@ export class FrameEvents extends EventListener {
         }
         const frame = this.getFrame(event.origin);
         if (frame) {
-            this.toggle(event.data, frame);
+            if (event.data.action === 'toggleClass') {
+                this.toggle(event.data, frame);
+            }
+            if (event.data.action === 'removeClass') {
+                this.toggle(event.data, frame, true);
+            }
         }
     }
 
-    private toggle(data: any, frame: HTMLIFrameElement) {
+    private toggle(data: any, frame: HTMLIFrameElement, remove = false) {
         if (data.class) {
-            if (frame.classList.contains(data.class)) {
+            if (frame.classList.contains(data.class) || remove) {
                 frame.classList.remove(data.class);
             }else {
                 frame.classList.add(data.class);
