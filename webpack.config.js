@@ -30,6 +30,7 @@ module.exports = {
     devServer: {
         port: 9000,
         https: true,
+        inline: false,
         compress: true,
         watchContentBase: true,
         contentBase: path.resolve(__dirname, './src'),
