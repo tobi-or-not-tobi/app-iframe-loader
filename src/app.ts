@@ -6,12 +6,8 @@ let frame: FrameWrapper;
 
 function launch(options: any = {}) {
     frame = new FrameWrapper(options);
-    eventManager.registerFrame(frame.iframe);
+    eventManager.registerFrame(frame.iframe, options);
     frame.launch();
 }
 
-function togglePanel(cls: string) {
-    frame.togglePanel(cls);
-}
-
-export { launch, togglePanel};
+export { launch};

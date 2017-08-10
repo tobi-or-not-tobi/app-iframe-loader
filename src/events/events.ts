@@ -1,3 +1,5 @@
+import { MouseEventListener } from './mouse-events';
+import { DomEvents } from './dom-events';
 import { EventListener } from './event-listener';
 import { HttpEvents } from './http-events';
 import { LocalLink } from './local-link';
@@ -10,6 +12,8 @@ export class EventManager {
         this.eventListeners.push(new HttpEvents());
         this.eventListeners.push(new LocalLink());
         this.eventListeners.push(new FrameEvents());
+        this.eventListeners.push(new DomEvents());
+        this.eventListeners.push(new MouseEventListener());
 
         this.setupListener();
     }
@@ -20,9 +24,9 @@ export class EventManager {
      * 
      * @param  {HTMLIFrameElement} frame
      */
-    registerFrame(frame: HTMLIFrameElement) {
+    registerFrame(frame: HTMLIFrameElement, options: any) {
         for (const listener of this.eventListeners) {
-            listener.registerFrame(frame);
+            listener.registerFrame(frame, options);
         }
     }
 

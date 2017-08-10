@@ -12,7 +12,7 @@ export class HttpEvents extends EventListener {
         }
         const frame = this.getFrame(event.origin);
         if (frame) {
-            this.load(event.data, frame);
+            this.load(event.data, frame.frame);
         }
     }
 
@@ -35,7 +35,7 @@ export class HttpEvents extends EventListener {
 
         xhr.onerror = function(err) {
             console.log('error', err);
-        }
+        };
 
         if (data.body) {
             xhr.send(JSON.stringify(data.body));

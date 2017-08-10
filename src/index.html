@@ -2,78 +2,8 @@
     <head>
         <title>iframeloader</title>
         <style>
-            body {
-                padding: 0;
-                margin: 0;
-            }
-            .page {
-                /* border: solid 1px blue; */
-            }
-            .item {
-                /* padding: 20px; */
-                top: 5px;
-                
-                position: -webkit-sticky;
-                position: -moz-sticky;
-                position: -ms-sticky;
-                position: -o-sticky; 
-                position: sticky; 
-            }
-            .wrapper {
-                /* border: solid 1px red; */
-                height: 50vh;
-                height: 2000px;
-                /* display: inline; */
-            }
-            .more {
-                height: 2000px;
-                background: green; 
-
-                background: linear-gradient(red, yellow); /* Standard syntax */
-                float: left;
-                width: 50vw;
-            }
-
-            .iFrameWrapper {
-                height: calc(100vh - 5px);
-            }
-
-            /* iframe */
-            iframe {
-                border: none; 
-                display: block;
-            }
-            iframe.search {
-                width:400px;
-                position: absolute;
-                right: 10px;
-                transition: height 0.15s ease-out;
-                transition-delay: 0.15s; 
-            }
-            iframe.search.tiny {
-                height: 65px;
-            }
-            iframe.search.max {
-                height: 100%;
-                /* background: #fff; */
-    margin:5px;
-    background-color: #fff;
-    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-
-            }
-            
-            
-            .footer {
-                height: 200px;
-            }
-
-            .iFrameWrapperTest {
-                border: solid 1px blue;
-            }
-            .iFrameWrapperTest .iFrame {
-                width: 0 !important;                
-            }
         </style>
+        <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
         <h1 class="header">This could be your big fat header...</h1>
@@ -85,20 +15,9 @@
             </div>
             <div class="wrapper">
                 Any content in our wrapper
-                <div class="item" id="wrapper">
-                    <!-- <a onclick="console.log('click')">toggle</a> -->
-                    <iframe src="https://localhost:4200" id="frameX" class="search tiny"></iframe>  
-                    Other content, bla die bla. Other content, bla die bla.
-                    Other content, bla die bla. Other content, bla die bla. Other content, bla die bla. Other content, bla die bla. Other content, bla die bla. 
-                    Other content, bla die bla. Other content, bla die bla.
-                    Other content, bla die bla. Other content, bla die bla. Other content, bla die bla. Other content, bla die bla. Other content, bla die bla. 
-                    Other content, bla die bla. Other content, bla die bla.
-                    Other content, bla die bla. Other content, bla die bla. Other content, bla die bla. Other content, bla die bla. Other content, bla die bla. 
-                    Other content, bla die bla. Other content, bla die bla.
-                    Other content, bla die bla. Other content, bla die bla. Other content, bla die bla. Other content, bla die bla. Other content, bla die bla. 
-                    Other content, bla die bla. Other content, bla die bla.
-                    Other content, bla die bla. Other content, bla die bla. Other content, bla die bla. Other content, bla die bla. Other content, bla die bla. 
-                </div>
+                <div class="item" id="wrapper"></div>
+                <!-- <iframe id="frame" class="pskb-search"></iframe> -->
+                <!-- <iframe src="data:text/html;charset=utf-8,%3C%21doctype%20html%3E%3Chtml%3E%3Chead%3E%3Cmeta%20charset%3D%22utf-8%22%3E%3Ctitle%3EESKB%20Search%3C/title%3E%3Cbase%20href%3D%22https%3A//wiki.hybris.com/download/attachments/101879094/%22%3E%3Cmeta%20name%3D%22viewport%22%20content%3D%22width%3Ddevice-width%2Cinitial-scale%3D1%22%3E%3Clink%20rel%3D%22icon%22%20type%3D%22image/x-icon%22%20href%3D%22favicon.ico%22%3E%3Clink%20href%3D%22https%3A//fonts.googleapis.com/icon%3Ffamily%3DMaterial+Icons%22%20rel%3D%22stylesheet%22%3E%3Clink%20href%3D%22styles.39c52d59c6ff54ca07d7.bundle.css%22%20rel%3D%22stylesheet%22/%3E%3C/head%3E%3Cbody%3E%3Capp-root%3E%3C/app-root%3E%3Cscript%20type%3D%22text/javascript%22%20src%3D%22inline.6efe4e7b5120e648425e.bundle.js%22%3E%3C/script%3E%3Cscript%20type%3D%22text/javascript%22%20src%3D%22polyfills.9abecf8ff901a6336ad1.bundle.js%22%3E%3C/script%3E%3Cscript%20type%3D%22text/javascript%22%20src%3D%22vendor.219c2bb4ad5b7b9c8bd8.bundle.js%22%3E%3C/script%3E%3Cscript%20type%3D%22text/javascript%22%20src%3D%22main.06232310e4082997536b.bundle.js%22%3E%3C/script%3E%3C/body%3E%3C/html%3E"></iframe> -->
             </div>
             <div class="footer">
                 FOOTER
@@ -107,24 +26,41 @@
 
         <script src="/assets/iframeloader.bundle.js"></script>
         <script>
-var alfUiOptions = {
-    url: 'https://localhost:4200',
-    frameId: 'frameX',
-    targetElementId: 'wrapper', // the wrapper that will hold the iframe
-    targetElementClass: 'iFrameWrapper', // an additional class for the wrapper that holds the iframe
-    // targetFrameClass: 'tiny', // tiny in case we're on a knowledge page
-    // targetFrameClass: 'max', // large in case we're on the landing page 
-    
-    // bootstrap some apps might need bootstrapping
-    bootstrap: {
-        pageId: '292372255',
-        host: 'https://wiki.hybris.com/display/hybrisalf/',
-        landingpage: false
-    }
-}
-iframeloader.launch(alfUiOptions);
-        </script>
+            var options = {
+                
+                url: 'https://192.168.2.9:4200',
 
+                // dynamic created frame
+                // baseUrl: 'https://wiki.hybris.com/download/attachments/328237014/',
+                // baseUrl: 'https://192.168.2.9:4200/assets/dist/',
+                // scripts: {
+                //     initial: [
+                //         'inline.bundle.js', 
+                //         'polyfills.bundle.js', 
+                //         'vendor.bundle.js'
+                //     ],
+                //     async: [
+                //         'main.bundle.js'
+                //     ]
+                // },
+                // styles: [
+                //     'styles.bundle.css',
+                //     'https://fonts.googleapis.com/icon?family=Material+Icons'
+                // ],
+                // body: '<app-root></app-root>',
+                
+                targetElementId: 'wrapper',
+                // bootstrap some apps might need bootstrapping
+                bootstrap: {
+                    // pageId: '292372255',
+                    // host: 'https://wiki.hybris.com/display/hybrisalf/',
+                    landingpage: true
+                }
+            }
+            iframeloader.launch(options);
+
+        </script>
+    
 
         <script>
             // var metadataOptions = {

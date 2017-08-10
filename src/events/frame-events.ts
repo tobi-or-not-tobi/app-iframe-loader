@@ -18,13 +18,26 @@ export class FrameEvents extends EventListener {
         }
         const frame = this.getFrame(event.origin);
         if (frame) {
+            if (event.data.action === 'bootstrap') {
+                this.bootstrap(frame.frame, frame.options);
+            }
             if (event.data.action === 'toggleClass') {
                 this.toggle(event.data, frame);
             }
             if (event.data.action === 'removeClass') {
-                this.toggle(event.data, frame, true);
+                this.toggle(event.data, frame.frame, true);
             }
         }
+    }
+
+    private bootstrap(frame: HTMLIFrameElement, options: any) {
+        if (!options.bootstrap) {
+            return;
+        }
+        this.replyResponse(frame, {
+            type: 'bootstrap',
+            params: options.bootstrap
+        });
     }
 
     private toggle(data: any, frame: HTMLIFrameElement, remove = false) {
