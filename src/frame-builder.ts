@@ -40,14 +40,8 @@ export class FrameBuilder {
         }
 
         if (options.scripts && options.scripts.initial) {
-            this.buildScripts(options.scripts.initial);
+            this.buildScripts(options.scripts.initial, options.scripts.async);
         }
-        if (options.scripts && options.scripts.async) {
-            iframe.contentWindow.setTimeout(function() {
-                this.buildScripts(options.scripts.async);
-            }.bind(this), 500);
-        }
-
     }
 
     protected buildStyles(styles: Array<any>) {
@@ -58,20 +52,31 @@ export class FrameBuilder {
             link.type = 'text/css'; // no need for HTML5
             this.frameDoc.head.insertBefore(link, this.frameDoc.head.firstChild);
         }.bind(this));
-        console.log(this.frameDoc.head);
     }
-
-    protected buildScripts(scripts: Array<any>) {
+    /**
+     * Loads all the scripts dynamically and waits while they're
+     * all loaded before the async scripts are loaded. The later 
+     * was requried - unclear why.
+     */
+    protected buildScripts(scripts: Array<any>, asyncScripts?: Array<any>) {
         if (!scripts) {
             return;
         }
+        let count = scripts.length;
         scripts.forEach(function(url: string) {
             const script = this.frameDoc.createElement('script');
+            script.onload = function(l: any) {
+                if (--count === 0) {
+                    // once all scripts are loaded
+                    // we load additional async scripts
+                    if (asyncScripts) {
+                        this.buildScripts(asyncScripts);
+                    }
+                }
+            }.bind(this);
             script.src = url;
             this.frameDoc.body.appendChild(script);
         }.bind(this));
     }
-
-
 
 }
