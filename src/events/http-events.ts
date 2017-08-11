@@ -1,6 +1,6 @@
 import { EventListener } from './event-listener';
 
-export class HttpEvents extends EventListener {
+export class HttpEventListener extends EventListener {
 
     constructor() {
         super();

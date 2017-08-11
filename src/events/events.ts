@@ -1,18 +1,18 @@
 import { MouseEventListener } from './mouse-events';
-import { DomEvents } from './dom-events';
+import { DomEventListener } from './dom-events';
 import { EventListener } from './event-listener';
-import { HttpEvents } from './http-events';
-import { LocalLink } from './local-link';
+import { HttpEventListener } from './http-events';
+import { LinkEventListener } from './local-link';
 import { FrameEvents } from './frame-events';
 
 export class EventManager {
     eventListeners: Array<EventListener> = [];
 
     constructor() {
-        this.eventListeners.push(new HttpEvents());
-        this.eventListeners.push(new LocalLink());
+        this.eventListeners.push(new HttpEventListener());
+        this.eventListeners.push(new LinkEventListener());
         this.eventListeners.push(new FrameEvents());
-        this.eventListeners.push(new DomEvents());
+        this.eventListeners.push(new DomEventListener());
         this.eventListeners.push(new MouseEventListener());
 
         this.setupListener();

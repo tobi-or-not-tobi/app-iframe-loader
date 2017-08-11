@@ -1,6 +1,11 @@
 import { EventListener } from './event-listener';
 
-export class LocalLink extends EventListener {
+/**
+ * Provides a listener that can open links from any of the parents.
+ * This is required for other frames that run in a different domain
+ * and have a different base URL.
+ */
+export class LinkEventListener extends EventListener {
 
     constructor() {
         super();

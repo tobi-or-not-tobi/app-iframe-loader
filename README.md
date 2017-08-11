@@ -1,15 +1,20 @@
 # iframeloader
 iframeloader is a small js library that can be used to load a URL in an iframe. The purpose is to generate the iframe on the fly and support any interaction and communciation between the hosted page and the iframe. 
 
-iframeloader is written in typescript and will be compiled in JS (es5)
+iframeloader is written in typescript and is compiled in JS (es5)
 
 ## Features
+- A Frame can be referenced
+- A frame can be created by URL or dynamically by providing static resources
 - Multiple frames can be generated
 - Provides postMessages from hosted page to iframe and visa versa
-
-# Todo
-- handover other events (i.e. click), so that an event outside will notify the iframe. This will improve the experience.
-
+- supports different event listeners:
+    * FrameEventListener
+    * HttpEventListener (mainly used for CORS)
+    * DomEventListener (i.e. dom manipulation)
+    * MouseEventListener
+    * LinkEventListener
+- event listeners can do a reply to the calling frame
 
 ## Development environment
 The code is developed in typescript and compiled with webpack.

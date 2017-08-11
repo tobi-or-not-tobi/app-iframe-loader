@@ -4,7 +4,7 @@ import { EventListener } from './event-listener';
  * Provides an event listener that is capable to follow up on any DOM changes
  * that must be applied in the hosting page.
  */
-export class DomEvents extends EventListener {
+export class DomEventListener extends EventListener {
 
     constructor() {
         super();
