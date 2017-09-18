@@ -8,6 +8,7 @@ export class FrameBuilder {
 
     protected init(iframe: HTMLIFrameElement, options: any) {
         this.frameDoc = iframe.contentWindow.document;
+        
         if (options.frameId) {
             iframe.id = options.frameId;
         }
@@ -16,31 +17,31 @@ export class FrameBuilder {
             iframe.src = options.url;
         }else {
             iframe.setAttribute('src', 'about:blank');
+            let html = '';
+            if (options.baseUrl) {
+                html += `<base href="${options.baseUrl}" />`;
+            }
+            if (options.body) {
+                html += `<body>${options.body}</body>`;
+            }
+            if (html) {
+                this.frameDoc.open();
+                this.frameDoc.write(`
+                    <!doctype html>
+                    <meta charset="utf-8">
+                    <meta name="viewport" content="width=device-width,initial-scale=1">
+                    ${html}`);
+                this.frameDoc.close();
+            }
         }
 
-        let html = '';
-        if (options.baseUrl) {
-            html += `<base href="${options.baseUrl}" />`;
-        }
-        if (options.body) {
-            html += `<body>${options.body}</body>`;
-        }
-        if (html) {
-            this.frameDoc.open();
-            this.frameDoc.write(`
-                <!doctype html>
-                <meta charset="utf-8">
-                <meta name="viewport" content="width=device-width,initial-scale=1">
-                ${html}`);
-            this.frameDoc.close();
-        }
 
         if (options.styles) {
             this.buildStyles(options.styles);
         }
 
         if (options.scripts && options.scripts.initial) {
-            this.buildScripts(options.scripts.initial, options.scripts.async);
+            this.loadScripts(options.scripts.initial, options.scripts.async);
         }
     }
 
@@ -53,30 +54,32 @@ export class FrameBuilder {
             this.frameDoc.head.insertBefore(link, this.frameDoc.head.firstChild);
         }.bind(this));
     }
+
     /**
-     * Loads all the scripts dynamically and waits while they're
-     * all loaded before the async scripts are loaded. The later 
-     * was requried - unclear why.
+     * Loads all the scripts dynamically. The scripts are loaded one by one, 
+     * after they're loaded. IE11 is causing trouble as it doesn't seem to 
+     * work nicely with multiple files and multiple onload script commands.
      */
-    protected buildScripts(scripts: Array<any>, asyncScripts?: Array<any>) {
+    loadScripts(scripts: Array<string>, asyncScripts: Array<string>) {
         if (!scripts) {
             return;
         }
-        let count = scripts.length;
-        scripts.forEach(function(url: string) {
-            const script = this.frameDoc.createElement('script');
-            script.onload = function(l: any) {
-                if (--count === 0) {
-                    // once all scripts are loaded
-                    // we load additional async scripts
-                    if (asyncScripts) {
-                        this.buildScripts(asyncScripts);
-                    }
+
+        const script = this.frameDoc.createElement('script');
+        script.onload = function(l: any) {
+            scripts.shift();
+            if (scripts.length > 0) {
+                this.loadScripts(scripts, asyncScripts);
+            }else {
+                if (asyncScripts) {
+                    this.loadScripts(asyncScripts);
                 }
-            }.bind(this);
-            script.src = url;
-            this.frameDoc.body.appendChild(script);
-        }.bind(this));
+            }
+        }.bind(this);
+
+        script.src = scripts[0];
+        this.frameDoc.body.appendChild(script);
     }
+
 
 }

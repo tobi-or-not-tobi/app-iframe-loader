@@ -36,29 +36,55 @@ body {
 }
 
 /* iframe */
-iframe.pskb-search {
+/* iframe.pskb-search {
     display: none;
 }
 iframe.pskb-search.loaded {
     display: block;
 } 
-iframe.search { 
+.search iframe { 
     width:400px;
     position: absolute;
     right: 10px;
     transition: height 0.15s ease-out;
     transition-delay: 0.15s; 
 }
-iframe.search.tiny {
+.search.tiny iframe{
     height: 65px;
 }
-iframe.search.max {
+.search.max iframe {
     height: 100%;
-    /* background: #fff; */
-    /* margin:5px; */
     background-color: #fff;
     box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+ */
+iframe {
+    border: none;
+    display: none;
+    width: 20%;
+    transition: height 0.15s ease-out;
+    transition-delay: 0.15s; 
+    z-index: 1000;
+    position: absolute;
+    margin-top: 150px;
+    width:calc(((92% / 3)*2));
+    max-width: calc((1800px / 3)*2);
+}
+iframe.max {
+    display: block;
+    height: 700px;
+    background-color: #fff;
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
 
+/* inline frame */
+iframe.inline {
+    display: block;
+    height: 60px;
+    margin-top: -50px;
+}
+iframe.inline.max {
+    height: 500px;
 }
 
 

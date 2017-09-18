@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     <head>
         <title>iframeloader</title>
@@ -28,28 +29,29 @@
         <script>
             var options = {
                 
-                url: 'https://192.168.2.9:4200',
+                // url: 'https://192.168.2.45:4200',
 
                 // dynamic created frame
                 // baseUrl: 'https://wiki.hybris.com/download/attachments/328237014/',
-                // baseUrl: 'https://192.168.2.9:4200/assets/dist/',
-                // scripts: {
-                //     initial: [
-                //         'inline.bundle.js', 
-                //         'polyfills.bundle.js', 
-                //         'vendor.bundle.js'
-                //     ],
-                //     async: [
-                //         'main.bundle.js'
-                //     ]
-                // },
-                // styles: [
-                //     'styles.bundle.css',
-                //     'https://fonts.googleapis.com/icon?family=Material+Icons'
-                // ],
-                // body: '<app-root></app-root>',
+                baseUrl: 'http://192.168.2.45:8080/',
+                // // baseUrl: 'https://192.168.2.9:4200/assets/dist/',
+                scripts: {
+                    initial: [
+                        'inline.bundle.js?v1', 
+                        'polyfills.bundle.js?v1'
+                    ],
+                    async: [
+                        'main.bundle.js?v1'
+                    ]
+                },
+                styles: [
+                    'styles.bundle.css',
+                    'https://fonts.googleapis.com/icon?family=Material+Icons'
+                ],
+                body: '<app-root></app-root>',
                 
                 targetElementId: 'wrapper',
+                targetElementClass: 'search',
                 // bootstrap some apps might need bootstrapping
                 bootstrap: {
                     // pageId: '292372255',
