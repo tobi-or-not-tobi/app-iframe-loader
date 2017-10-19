@@ -12,7 +12,6 @@ export class FrameBuilder {
         if (options.frameId) {
             iframe.id = options.frameId;
         }
-
         if (options.url) {
             iframe.src = options.url;
         }else {

@@ -1,0 +1,25 @@
+
+.alfui-wrapper {
+    /* border: solid 1px red; */
+    height: 50vh;
+    height: 2000px;
+    /* display: inline; */
+}
+
+.alfui-wrapper iframe {
+    border: none;
+
+    height: 1000px;
+    width: 400px;
+}
+
+.item {
+    /* padding: 20px; */
+    top: 5px;
+    
+    position: -webkit-sticky;
+    position: -moz-sticky;
+    position: -ms-sticky;
+    position: -o-sticky; 
+    position: sticky; 
+}

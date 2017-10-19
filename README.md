@@ -3,6 +3,13 @@ iframeloader is a small js library that can be used to load a URL in an iframe. 
 
 iframeloader is written in typescript and is compiled in JS (es5)
 
+## Install
+Run `npm install` in order to load depencies. 
+
+Run `npm run start` in order to start the test app. The test app (index.html) provides an example how to launch an app in an iframe. The app is served dynamically (bundles in memory) and watches file changes. The webapp is however not refreshed automatically.
+
+Run `npm run build` in order to build a single `iframeloader.bundle.js`. This file can be deployed / included.
+
 ## Features
 - A Frame can be referenced
 - A frame can be created by URL or dynamically by providing static resources
@@ -41,3 +48,5 @@ A proxy can be used for any third party APIs that require CORS configuration for
 
 The dev server can be configured using the `webpack.config.js`.
 
+## Run
+In case the application doesn't start, please check if the applications are trusted by the browser in case of lacking certifation.

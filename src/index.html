@@ -2,146 +2,37 @@
 <html>
     <head>
         <title>iframeloader</title>
-        <style>
-        </style>
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
-        <h1 class="header">This could be your big fat header...</h1>
+        <h1 class="header">Sample Title</h1>
         
         <div class="page">
-            <div class="more">
-                more...
-                <a onclick="iframeloader.togglePanel('iFrameWrapperTest')">toggle</a>
-            </div>
-            <div class="wrapper">
-                Any content in our wrapper
-                <div class="item" id="wrapper"></div>
-                <!-- <iframe id="frame" class="pskb-search"></iframe> -->
-                <!-- <iframe src="data:text/html;charset=utf-8,%3C%21doctype%20html%3E%3Chtml%3E%3Chead%3E%3Cmeta%20charset%3D%22utf-8%22%3E%3Ctitle%3EESKB%20Search%3C/title%3E%3Cbase%20href%3D%22https%3A//wiki.hybris.com/download/attachments/101879094/%22%3E%3Cmeta%20name%3D%22viewport%22%20content%3D%22width%3Ddevice-width%2Cinitial-scale%3D1%22%3E%3Clink%20rel%3D%22icon%22%20type%3D%22image/x-icon%22%20href%3D%22favicon.ico%22%3E%3Clink%20href%3D%22https%3A//fonts.googleapis.com/icon%3Ffamily%3DMaterial+Icons%22%20rel%3D%22stylesheet%22%3E%3Clink%20href%3D%22styles.39c52d59c6ff54ca07d7.bundle.css%22%20rel%3D%22stylesheet%22/%3E%3C/head%3E%3Cbody%3E%3Capp-root%3E%3C/app-root%3E%3Cscript%20type%3D%22text/javascript%22%20src%3D%22inline.6efe4e7b5120e648425e.bundle.js%22%3E%3C/script%3E%3Cscript%20type%3D%22text/javascript%22%20src%3D%22polyfills.9abecf8ff901a6336ad1.bundle.js%22%3E%3C/script%3E%3Cscript%20type%3D%22text/javascript%22%20src%3D%22vendor.219c2bb4ad5b7b9c8bd8.bundle.js%22%3E%3C/script%3E%3Cscript%20type%3D%22text/javascript%22%20src%3D%22main.06232310e4082997536b.bundle.js%22%3E%3C/script%3E%3C/body%3E%3C/html%3E"></iframe> -->
+            <div class="alfui-wrapper">
+                <div class="item" id="alfUiApp"></div>
             </div>
             <div class="footer">
                 FOOTER
             </div>
         </div>
 
+        <!-- the application bundle that will change upon change -->
         <script src="/assets/iframeloader.bundle.js"></script>
-        <script>
-            var options = {
-                
-                // url: 'https://192.168.2.45:4200',
 
-                // dynamic created frame
-                // baseUrl: 'https://wiki.hybris.com/download/attachments/328237014/',
-                baseUrl: 'http://192.168.2.45:8080/',
-                // // baseUrl: 'https://192.168.2.9:4200/assets/dist/',
-                scripts: {
-                    initial: [
-                        'inline.bundle.js?v1', 
-                        'polyfills.bundle.js?v1'
-                    ],
-                    async: [
-                        'main.bundle.js?v1'
-                    ]
-                },
-                styles: [
-                    'styles.bundle.css',
-                    'https://fonts.googleapis.com/icon?family=Material+Icons'
-                ],
-                body: '<app-root></app-root>',
+        <link rel="stylesheet" type="text/css" href="alf-ui.css">
+        <script>
+            var alfUiOptions = {
                 
-                targetElementId: 'wrapper',
-                targetElementClass: 'search',
-                // bootstrap some apps might need bootstrapping
+                url: 'https://localhost:4200',
+                targetElementId: 'alfUiApp',
                 bootstrap: {
-                    // pageId: '292372255',
+                    pageId: '292372255',
+                    spaceId: 'alftest'
                     // host: 'https://wiki.hybris.com/display/hybrisalf/',
-                    landingpage: true
                 }
             }
-            iframeloader.launch(options);
+            iframeloader.launch(alfUiOptions);
 
-        </script>
-    
-
-        <script>
-            // var metadataOptions = {
-            //     targetElementId: 'first',
-            //     targetFrameClass: 'editorframe',
-            //     bootstrap: {
-            //         metaModel: {
-            //             fields: [
-            //                 {
-            //                     id: "pageType",
-            //                     label: "Page Type",
-            //                     type: "Boolean"
-            //                 },
-            //                 {
-            //                     "id": "description",
-            //                     "label": "My Description",
-            //                     "type": "String"
-            //                 },
-            //                 {
-            //                     "id": "birthday",
-            //                     "label": "Birthday",
-            //                     "type": "Date"
-            //                 },
-            //                 {
-            //                     "id": "colors",
-            //                     "label": "Kleur",
-            //                     "type": "Select",
-            //                     values: [
-            //                         'red', 'blue', 'yellow', 'black', 'brown'
-            //                     ]
-            //                 },
-            //                 {
-            //                     "id": "colorsref",
-            //                     "label": "Kleur (ref)",
-            //                     "type": "Reference",
-            //                     values: [
-            //                         'red', 'blue'
-            //                     ]
-            //                 },
-            //                 {
-            //                     id: "items",
-            //                     label: "Items",
-            //                     type: "Reference",
-            //                     loader: {
-            //                         url: 'https://wiki.hybris.com/rest/api/content/318623324/property/alf',
-            //                         method: 'get'
-            //                     }
-            //                 }
-            //             ]
-            //         },
-            //         view: {
-            //             edit: {
-            //                 // fields: ['pageType', 'description', 'colors', 'colorsref', 'items', 'birthday']
-            //                 tabs: [
-            //                     {
-            //                         label: 'References',
-            //                         fields: ['items']
-            //                     },
-            //                     {
-            //                         label: 'Properties',
-            //                         fields: ['pageType']
-            //                     },
-            //                     {
-            //                         label: 'More',
-            //                         fields: [
-            //                             {model: 'description', hidePlaceholder: false}, 
-            //                             'colors'] 
-            //                     }
-            //                 ]
-            //             }
-            //         },
-            //         data: {
-            //             pageType: true,
-            //             description: 'hallo... this is content...',
-            //             birthday: '06-01-2010'
-            //         }
-            //     }
-            // }
-            // iframeloader.launch('https://localhost:4300', metadataOptions);
         </script>
 
     </body>
